@@ -5,6 +5,7 @@ import { UserLoginComponent } from './components/user-login/user-login.component
 import { authGuard } from './shared/guards/auth.guard';
 import { NewsGeneralComponent } from './components/news-general/news-general.component';
 import { NewsDepartmentComponent } from './components/news-department/news-department.component';
+import { UserRegisterComponent } from './components/user-register/user-register.component';
 
 export const routes: Routes = [
 	{
@@ -14,6 +15,10 @@ export const routes: Routes = [
 	{
 		path: 'login',
 		component: UserLoginComponent,
+	},
+	{
+		path: 'register',
+		component: UserRegisterComponent,
 	},
 	{
 		path: 'home',
