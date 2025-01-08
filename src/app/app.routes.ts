@@ -3,9 +3,9 @@ import { LandingPageComponent } from './components/landing-page/landing-page.com
 import { MainPageComponent } from './components/main-page/main-page.component';
 import { UserLoginComponent } from './components/user-login/user-login.component';
 import { authGuard } from './shared/guards/auth.guard';
-import { NewsGeneralComponent } from './components/news-general/news-general.component';
 import { NewsDepartmentComponent } from './components/news-department/news-department.component';
 import { UserRegisterComponent } from './components/user-register/user-register.component';
+import { AnnouncementsFrameComponent } from './components/announcements/announcements-frame/announcements-frame.component';
 
 export const routes: Routes = [
 	{
@@ -27,7 +27,7 @@ export const routes: Routes = [
 		children: [
 			{
 				path: '',
-				component: NewsGeneralComponent,
+				component: AnnouncementsFrameComponent,
 			},
 			{
 				path: ':departmentId', // TODO name instead ?

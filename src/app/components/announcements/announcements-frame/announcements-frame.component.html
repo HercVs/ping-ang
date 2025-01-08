@@ -1,0 +1,11 @@
+<div class="m-4">
+	@if (!announcements) {
+		<span>Nothing to display</span>
+	} @else {
+		<span>Latest news</span>
+
+		@for (announcement of announcements; track announcement) {
+			<app-announcement [announcement]="announcement"></app-announcement>
+		}
+	}
+</div>
