@@ -1,11 +1,10 @@
 import { Component } from '@angular/core';
-import { SidebarComponent } from '../sidebar/sidebar.component';
-import { NewsGeneralComponent } from '../news-general/news-general.component';
 import { RouterOutlet } from '@angular/router';
+import { SidebarComponent } from '../sidebar/sidebar.component';
 
 @Component({
 	selector: 'app-main-page',
-	imports: [SidebarComponent, RouterOutlet],
+	imports: [RouterOutlet, SidebarComponent],
 	templateUrl: './main-page.component.html',
 	styleUrl: './main-page.component.css',
 })
