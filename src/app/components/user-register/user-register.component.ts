@@ -8,7 +8,7 @@ import {
 } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
-import { User } from '../../shared/interfaces/backend';
+import { Credentials } from '../../shared/interfaces/backend';
 
 @Component({
 	selector: 'app-user-register',
@@ -37,7 +37,7 @@ export class UserRegisterComponent {
 	);
 
 	onSubmit(value: any) {
-		const user: User = {
+		const user: Credentials = {
 			username: value['email'],
 			password: value['password'],
 		};

@@ -6,6 +6,7 @@ import {
 	Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { Credentials } from '../../shared/interfaces/backend';
 
 @Component({
 	selector: 'app-user-login',
@@ -18,12 +19,14 @@ export class UserLoginComponent {
 
 	loginForm = new FormGroup({
 		// TODO defaults to pass validators for testing - Remove
-		email: new FormControl('a@a', [Validators.required, Validators.email]),
+		username: new FormControl('a@a', [Validators.required, Validators.email]),
 		password: new FormControl('a', [Validators.required]),
 	});
 
 	onSubmit() {
 		// TODO backend required
-		this.router.navigate(['home']);
+		// this.router.navigate(['home']);
+
+		const credentials = this.loginForm.value as Credentials;
 	}
 }

@@ -15,7 +15,7 @@ export class UserService {
 
 	constructor() {}
 
-	registerUser(user: User) {
-		return this.http.post(`${API_URL}/insert`, user);
+	registerUser(user: Credentials) {
+		return this.http.post<{ user: User }>(`${API_URL}/insert`, user);
 	}
 }
