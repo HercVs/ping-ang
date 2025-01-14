@@ -6,7 +6,9 @@ import {
 	Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Credentials } from '../../shared/interfaces/backend';
+import { Credentials, User } from '../../shared/interfaces/backend';
+import { UserService } from '../../shared/services/user.service';
+import { jwtDecode } from 'jwt-decode';
 
 @Component({
 	selector: 'app-user-login',
@@ -16,17 +18,32 @@ import { Credentials } from '../../shared/interfaces/backend';
 })
 export class UserLoginComponent {
 	router = inject(Router);
+	userService = inject(UserService);
 
 	loginForm = new FormGroup({
 		// TODO defaults to pass validators for testing - Remove
-		username: new FormControl('a@a', [Validators.required, Validators.email]),
-		password: new FormControl('a', [Validators.required]),
+		username: new FormControl('test@gmail.com', [
+			Validators.required,
+			Validators.email,
+		]),
+		password: new FormControl('Test123!', [Validators.required]),
 	});
 
 	onSubmit() {
-		// TODO backend required
-		// this.router.navigate(['home']);
-
 		const credentials = this.loginForm.value as Credentials;
+		this.userService.loginUser(credentials).subscribe({
+			next: (response) => {
+				const jwt = response.token;
+				localStorage.setItem('token', jwt);
+				const user: User = {
+					username: jwtDecode(jwt).sub as unknown as string,
+				};
+				this.userService.user.set(user);
+				this.router.navigate(['home']);
+			},
+			error: (response) => {
+				console.log('Error during log in', response);
+			},
+		});
 	}
 }
