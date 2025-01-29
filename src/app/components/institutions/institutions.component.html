@@ -1,0 +1,59 @@
+<div>
+	<a role="button" (click)="resetSelectors()"> Reset </a>
+</div>
+
+<div class="d-flex gap-5">
+	<div>
+		<span>Country</span>
+		@for (country of countries; track $index) {
+			<a
+				role="button"
+				class="list-group-item list-group-item-action py-3 lh-tight text-white"
+				(click)="findInstitutions(country.id)"
+				>{{ country.name }}</a
+			>
+		}
+	</div>
+
+	@if (institutions.length > 0) {
+		<div>
+			<span>Institutions</span>
+			@for (institution of institutions; track $index) {
+				<a
+					role="button"
+					class="list-group-item list-group-item-action py-3 lh-tight text-white"
+					(click)="findSchools(institution.id)"
+					>{{ institution.name }}</a
+				>
+			}
+		</div>
+	}
+
+	@if (schools.length > 0) {
+		<div>
+			<span>Schools</span>
+			@for (school of schools; track $index) {
+				<a
+					role="button"
+					class="list-group-item list-group-item-action py-3 lh-tight text-white"
+					(click)="findDepartments(selectedInstitution, school.id)"
+					>{{ school.school }}</a
+				>
+			}
+		</div>
+	}
+
+	@if (departments.length > 0) {
+		<div>
+			<span>Departments</span>
+			@for (department of departments; track $index) {
+				<a
+					role="button"
+					class="list-group-item list-group-item-action py-3 lh-tight text-white"
+					(click)="subscribeNewsletter(department.id)"
+					>{{ department.department }}</a
+				>
+			}
+		</div>
+	}
+</div>
