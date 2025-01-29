@@ -4,7 +4,10 @@
 
 		<div class="navbar-nav w-50 justify-content-around mx-auto">
 			<a class="nav-link text-light" role="button" routerLink="home">Home</a>
-			<a class="nav-link text-light" role="button" routerLink="institutions"
+			<a
+				class="nav-link text-light"
+				role="button"
+				routerLink="home/institutions"
 				>Supported Institutions</a
 			>
 			<a class="nav-link text-light" role="button" routerLink="about-us"
@@ -15,9 +18,8 @@
 		@if (user()) {
 			<div class="d-flex">
 				<a class="btn" role="button" routerLink="account">
-					<!-- TODO account component -->
 					<span class="d-flex gap-1 text-light align-items-center">
-						Account
+						{{ user()?.username }}
 						<mat-icon> account_circle </mat-icon>
 					</span>
 				</a>
