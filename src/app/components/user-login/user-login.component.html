@@ -24,6 +24,9 @@
 				formControlName="password"
 			/>
 		</div>
+		@if (loginFailed) {
+			<div><span class="text-danger">Incorrect e-mail or password </span></div>
+		}
 		<button
 			type="submit"
 			class="btn btn-primary mt-3 w-25"
