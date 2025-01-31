@@ -13,6 +13,7 @@ import { MenuItem } from '../../shared/interfaces/menu-item';
 })
 export class MainPageComponent {
 	institutionService = inject(InstitutionService);
+	title: string = 'Subscriptions';
 	subscriptions: MenuItem[] = [];
 
 	ngOnInit() {

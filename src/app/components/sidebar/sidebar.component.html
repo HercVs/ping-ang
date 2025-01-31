@@ -2,7 +2,7 @@
 	class="d-flex flex-column align-items-stretch flex-shrink-0 gap-1 m-4 text-nowrap"
 >
 	<div class="d-flex align-items-center flex-shrink-0 p-3">
-		<span class="fs-5 fw-semibold">List Title Placeholder</span>
+		<span class="fs-5 fw-semibold">{{ title }}</span>
 	</div>
 	<div class="list-group list-group-flush scrollarea gap-2">
 		@for (item of items; track $index) {

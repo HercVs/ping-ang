@@ -9,5 +9,6 @@ import { RouterLink } from '@angular/router';
 	styleUrl: './sidebar.component.css',
 })
 export class SidebarComponent {
+	@Input() title: string | undefined;
 	@Input() items: MenuItem[] | undefined;
 }

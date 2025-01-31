@@ -9,6 +9,7 @@ import { SidebarComponent } from '../sidebar/sidebar.component';
 	styleUrl: './account-page.component.css',
 })
 export class AccountPageComponent {
+	title: string = 'Account';
 	accountItems = [
 		{
 			name: 'Personal Info',
