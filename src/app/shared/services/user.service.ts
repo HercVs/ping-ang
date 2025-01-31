@@ -1,8 +1,8 @@
-import { Injectable, effect, inject, signal } from '@angular/core';
+import { Injectable, inject, signal } from '@angular/core';
 import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Credentials, User } from '../interfaces/backend';
+import { Credentials, CustomJwtPayload, User } from '../interfaces/backend';
 import { jwtDecode } from 'jwt-decode';
 
 const API_URL = `${environment.apiURL}/api`;
@@ -19,22 +19,28 @@ export class UserService {
 	constructor() {
 		const jwtToken = localStorage.getItem('token');
 		if (jwtToken) {
-			const decodedUsername = jwtDecode(jwtToken).sub as unknown as string;
+			const decodedToken = jwtDecode<CustomJwtPayload>(jwtToken);
+			const decodedUsername = decodedToken.sub as unknown as string;
+			const decodedId = decodedToken.uid as unknown as string;
+
 			this.user.set({
 				username: decodedUsername,
+				id: decodedId,
 			});
-			console.log('Jwt found, user: ', this.user());
 		}
 	}
 
-	registerUser(user: Credentials) {
-		return this.http.post<{ user: User }>(`${API_URL}/users/insert`, user);
+	registerUser(credentials: Credentials) {
+		return this.http.post<{ user: User }>(
+			`${API_URL}/users/insert`,
+			credentials,
+		);
 	}
 
-	loginUser(user: Credentials) {
+	loginUser(credentials: Credentials) {
 		return this.http.post<{ token: string }>(
 			`${API_URL}/auth/authenticate`,
-			user,
+			credentials,
 		);
 	}
 

@@ -6,7 +6,11 @@ import {
 	Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
-import { Credentials, User } from '../../shared/interfaces/backend';
+import {
+	Credentials,
+	CustomJwtPayload,
+	User,
+} from '../../shared/interfaces/backend';
 import { UserService } from '../../shared/services/user.service';
 import { jwtDecode } from 'jwt-decode';
 
@@ -19,6 +23,7 @@ import { jwtDecode } from 'jwt-decode';
 export class UserLoginComponent {
 	router = inject(Router);
 	userService = inject(UserService);
+	loginFailed: boolean = false;
 
 	loginForm = new FormGroup({
 		// TODO defaults to pass validators for testing - Remove
@@ -36,13 +41,16 @@ export class UserLoginComponent {
 				const jwt = response.token;
 				localStorage.setItem('token', jwt);
 				const user: User = {
-					username: jwtDecode(jwt).sub as unknown as string,
+					username: jwtDecode<CustomJwtPayload>(jwt).sub as unknown as string,
+					id: jwtDecode<CustomJwtPayload>(jwt).uid as unknown as string,
 				};
 				this.userService.user.set(user);
 				this.router.navigate(['home']);
 			},
 			error: (response) => {
 				console.log('Error during log in', response);
+				this.loginFailed = true;
+				this.loginForm.get('password')?.reset();
 			},
 		});
 	}
