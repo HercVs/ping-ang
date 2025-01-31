@@ -7,6 +7,7 @@ import {
 	Institution,
 	School,
 } from '../interfaces/institutions';
+import { UserService } from './user.service';
 
 const API_URL = `${environment.apiURL}/api`;
 
@@ -15,6 +16,7 @@ const API_URL = `${environment.apiURL}/api`;
 })
 export class InstitutionService {
 	http: HttpClient = inject(HttpClient);
+	userService: UserService = inject(UserService);
 
 	getAllCountries() {
 		return this.http.get<Country[]>(API_URL + '/countries', {
@@ -51,6 +53,17 @@ export class InstitutionService {
 				'/schools/' +
 				schoolId +
 				'/departments',
+			{
+				headers: {
+					Accept: 'application/json',
+				},
+			},
+		);
+	}
+
+	getUserDepartments() {
+		return this.http.get<Department[]>(
+			API_URL + '/users/' + this.userService.user()?.id + '/departments',
 			{
 				headers: {
 					Accept: 'application/json',
