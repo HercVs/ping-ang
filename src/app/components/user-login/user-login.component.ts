@@ -13,17 +13,18 @@ import {
 } from '../../shared/interfaces/backend';
 import { UserService } from '../../shared/services/user.service';
 import { jwtDecode } from 'jwt-decode';
+import { NgSwitch, NgSwitchCase } from '@angular/common';
 
 @Component({
 	selector: 'app-user-login',
-	imports: [ReactiveFormsModule],
+	imports: [ReactiveFormsModule, NgSwitch, NgSwitchCase],
 	templateUrl: './user-login.component.html',
 	styleUrl: './user-login.component.css',
 })
 export class UserLoginComponent {
 	router = inject(Router);
 	userService = inject(UserService);
-	loginFailed: boolean = false;
+	errorCode: string | undefined = history?.state.errorCode;
 
 	loginForm = new FormGroup({
 		// TODO defaults to pass validators for testing - Remove
@@ -47,9 +48,8 @@ export class UserLoginComponent {
 				this.userService.user.set(user);
 				this.router.navigate(['home']);
 			},
-			error: (response) => {
-				console.log('Error during log in', response);
-				this.loginFailed = true;
+			error: (err) => {
+				this.errorCode = err.error.code;
 				this.loginForm.get('password')?.reset();
 			},
 		});

@@ -24,8 +24,15 @@
 				formControlName="password"
 			/>
 		</div>
-		@if (loginFailed) {
-			<div><span class="text-danger">Incorrect e-mail or password </span></div>
+		@if (errorCode) {
+			<div [ngSwitch]="errorCode">
+				<span *ngSwitchCase="'FailedAuthentication'" class="text-danger">
+					Incorrect e-mail or password
+				</span>
+				<span *ngSwitchCase="'TokenExpired'" class="text-danger">
+					Session expired. Please log in again
+				</span>
+			</div>
 		}
 		<button
 			type="submit"
