@@ -3,7 +3,8 @@ import { environment } from '../../../environments/environment.development';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { Credentials, CustomJwtPayload, User } from '../interfaces/backend';
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { HttpRequest } from '@angular/common/http';
 
 const API_URL = `${environment.apiURL}/api`;
 
@@ -20,12 +21,10 @@ export class UserService {
 		const jwtToken = localStorage.getItem('token');
 		if (jwtToken) {
 			const decodedToken = jwtDecode<CustomJwtPayload>(jwtToken);
-			const decodedUsername = decodedToken.sub as unknown as string;
-			const decodedId = decodedToken.uid as unknown as string;
 
 			this.user.set({
-				username: decodedUsername,
-				id: decodedId,
+				username: decodedToken.sub as unknown as string,
+				id: decodedToken.uid as unknown as string,
 			});
 		}
 	}
@@ -44,9 +43,23 @@ export class UserService {
 		);
 	}
 
-	logoutUser() {
+	logoutUser(error: object | undefined = undefined) {
 		this.user.set(null);
 		localStorage.removeItem('token');
-		this.router.navigate(['']);
+		this.router.navigate(['/login'], {
+			state: error,
+		});
+	}
+
+	getJwtToken(): string | null {
+		return localStorage.getItem('token');
+	}
+
+	isTokenExpired(jwtToken: JwtPayload): boolean {
+		return jwtToken.exp ? jwtToken.exp < Date.now() / 1000 : true;
+	}
+
+	isLoginRequest(req: HttpRequest<any>): boolean {
+		return req.url.endsWith('/api/auth/authenticate');
 	}
 }
