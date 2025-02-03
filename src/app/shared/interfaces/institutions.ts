@@ -22,3 +22,8 @@ export interface Department {
 	school: string;
 	institution: string;
 }
+
+export interface SubscriptionDetails {
+	userId: number;
+	departmentId: number;
+}

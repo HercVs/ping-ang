@@ -4,17 +4,29 @@
 	<div class="d-flex align-items-center flex-shrink-0 p-3">
 		<span class="fs-5 fw-semibold">{{ title }}</span>
 	</div>
-	<div class="list-group list-group-flush scrollarea gap-2">
+	<div class="list-group list-group-flush scrollarea gap-1">
 		@for (item of items; track $index) {
-			<a
-				class="list-group-item list-group-item-action py-3 lh-tight bg-dark bg-gradient text-white border border-success rounded"
-				role="button"
-				routerLink="{{ item.endpoint }}"
+			<div
+				class="list-group-item list-group-item-action lh-tight bg-dark bg-gradient border border-success rounded d-flex justify-content-between align-items-center"
 			>
-				<div class="d-flex w-100 align-items-center justify-content-between">
-					<strong class="mb-1">{{ item.name }}</strong>
+				<div class="p-2">
+					<a
+						role="button"
+						class="btn text-white"
+						routerLink="{{ item.endpoint }}"
+					>
+						<strong class="">{{ item.name }}</strong>
+					</a>
 				</div>
-			</a>
+				<div class="p-2">
+					<a
+						role="button"
+						class="btn text-danger"
+						(click)="deleteSubscription(item.endpoint)"
+						>X</a
+					>
+				</div>
+			</div>
 		}
 	</div>
 </div>
