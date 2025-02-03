@@ -50,10 +50,16 @@
 				<a
 					role="button"
 					class="list-group-item list-group-item-action py-3 lh-tight text-white"
-					(click)="subscribeNewsletter(department.id)"
+					(click)="subscribeToNewsletter(department.id)"
 					>{{ department.department }}</a
 				>
 			}
+		</div>
+	} @else if (departmentsError) {
+		<div>
+			<span>
+				{{ departmentsError }}
+			</span>
 		</div>
 	}
 </div>
