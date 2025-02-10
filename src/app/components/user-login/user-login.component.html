@@ -26,7 +26,7 @@
 		</div>
 		@if (errorCode) {
 			<div [ngSwitch]="errorCode">
-				<span *ngSwitchCase="'FailedAuthentication'" class="text-danger">
+				<span *ngSwitchCase="'userNotAuthenticated'" class="text-danger">
 					Incorrect e-mail or password
 				</span>
 				<span *ngSwitchCase="'TokenExpired'" class="text-danger">
