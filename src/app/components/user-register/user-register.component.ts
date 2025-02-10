@@ -26,8 +26,6 @@ export class UserRegisterComponent {
 	registerForm = new FormGroup(
 		{
 			email: new FormControl('', [Validators.required, Validators.email]),
-			// Validators.email allows emails like test@gmail
-			// TODO should be replaced with pattern that also requires ".com"
 			password: new FormControl('', [
 				Validators.required,
 				Validators.pattern(

@@ -38,7 +38,7 @@ export const routes: Routes = [
 				component: AnnouncementsFrameComponent,
 			},
 			{
-				path: 'news/:departmentId', // TODO name instead ?
+				path: 'news/:departmentId',
 				component: NewsDepartmentComponent,
 			},
 			{
