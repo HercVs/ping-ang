@@ -27,9 +27,7 @@ export class InstitutionService {
 			next: (res) => {
 				this.subscriptions.set(this.mapDepartmentsToMenu(res));
 			},
-			error: (err) => {
-				console.log(err);
-			},
+			error: (err) => {},
 		});
 	}
 

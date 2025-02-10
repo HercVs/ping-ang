@@ -64,9 +64,7 @@ export class InstitutionsComponent {
 			next: (data) => {
 				this.institutions = data.sort(byProperty('name'));
 			},
-			error: (err) => {
-				console.log('error');
-			},
+			error: (err) => {},
 		});
 		this.selectedCountry = country;
 		this.selectedInstitution = 0;
@@ -85,9 +83,7 @@ export class InstitutionsComponent {
 			next: (data) => {
 				this.schools = data.sort(byProperty('school'));
 			},
-			error: (err) => {
-				console.log('error');
-			},
+			error: (err) => {},
 		});
 		this.selectedInstitution = institutionId;
 		this.selectedSchool = 0;
@@ -120,14 +116,10 @@ export class InstitutionsComponent {
 			departmentId: departmentId,
 		};
 		this.institutionService.subscribeToDepartment(subscription).subscribe({
-			next: (data) => {
-				console.log(data);
-				this.institutionService.refreshSubscriptions();
-			},
-			error: (err) => {
-				console.log(err);
-			},
+			next: (data) => {},
+			error: (err) => {},
 		});
+		this.institutionService.refreshSubscriptions();
 	}
 
 	unsubscribeFromNewsletter(departmentId: number) {
@@ -137,12 +129,10 @@ export class InstitutionsComponent {
 		};
 		this.institutionService.unsubscribeFromDepartment(subscription).subscribe({
 			next: (data) => {
-				console.log(data);
-				this.institutionService.refreshSubscriptions(); // TODO doesn't refresh like subscribing does
+				// TODO doesn't refresh like subscribing does
 			},
-			error: (err) => {
-				console.log(err);
-			},
+			error: (err) => {},
 		});
+		this.institutionService.refreshSubscriptions();
 	}
 }
