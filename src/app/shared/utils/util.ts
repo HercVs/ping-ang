@@ -12,3 +12,7 @@ export function byProperty<T>(key: keyof T) {
 		return valueA < valueB ? -1 : valueA > valueB ? 1 : 0;
 	};
 }
+
+export function sleep(ms: number) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
