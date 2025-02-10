@@ -27,12 +27,8 @@ export class UserLoginComponent {
 	errorCode: string | undefined = history?.state.errorCode;
 
 	loginForm = new FormGroup({
-		// TODO defaults to pass validators for testing - Remove
-		username: new FormControl('test@gmail.com', [
-			Validators.required,
-			Validators.email,
-		]),
-		password: new FormControl('Test123!', [Validators.required]),
+		username: new FormControl('', [Validators.required, Validators.email]),
+		password: new FormControl('', [Validators.required]),
 	});
 
 	onSubmit() {
