@@ -19,7 +19,7 @@ export class AuthInterceptorService implements HttpInterceptor {
 		/**
 		 * If it's an auth request process it and future requests.
 		 */
-		if (this.userService.isLoginRequest(req)) {
+		if (this.userService.isAuthRequest(req)) {
 			this.ignoreFutureRequests = false;
 			return next.handle(req);
 		}

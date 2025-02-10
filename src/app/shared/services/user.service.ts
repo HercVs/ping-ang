@@ -59,7 +59,10 @@ export class UserService {
 		return jwtToken.exp ? jwtToken.exp < Date.now() / 1000 : true;
 	}
 
-	isLoginRequest(req: HttpRequest<any>): boolean {
-		return req.url.endsWith('/api/auth/authenticate');
+	isAuthRequest(req: HttpRequest<any>): boolean {
+		return (
+			req.url.endsWith('/api/auth/authenticate') ||
+			req.url.endsWith('/api/users/insert')
+		);
 	}
 }
