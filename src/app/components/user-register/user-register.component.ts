@@ -9,6 +9,7 @@ import {
 import { Router } from '@angular/router';
 import { UserService } from '../../shared/services/user.service';
 import { Credentials } from '../../shared/interfaces/backend';
+import { sleep } from '../../shared/utils/util';
 
 @Component({
 	selector: 'app-user-register',
@@ -19,6 +20,8 @@ import { Credentials } from '../../shared/interfaces/backend';
 export class UserRegisterComponent {
 	router = inject(Router);
 	userService = inject(UserService);
+	registrationError: string = '';
+	registrationSuccess: boolean = false;
 
 	registerForm = new FormGroup(
 		{
@@ -36,6 +39,11 @@ export class UserRegisterComponent {
 		this.validatePasswordConfirmPasswordMatch,
 	);
 
+	ngOnInit() {
+		this.registrationError = '';
+		this.registrationSuccess = false;
+	}
+
 	onSubmit(value: any) {
 		const user: Credentials = {
 			username: value['email'],
@@ -43,13 +51,13 @@ export class UserRegisterComponent {
 		};
 		this.userService.registerUser(user).subscribe({
 			next: (response) => {
-				console.log('Successfully registered', response);
-				this.router.navigate(['']);
-				// TODO registration success pop-up
+				this.registrationSuccess = true;
+				sleep(2000).then(() => {
+					this.router.navigate(['/login']);
+				});
 			},
 			error: (response) => {
-				console.log(response.error.description);
-				// TODO check if email exists when clicking off (blur)="" email field instead
+				this.registrationError = response.error.description;
 			},
 		});
 	}

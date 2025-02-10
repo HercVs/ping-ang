@@ -73,6 +73,17 @@
 					Passwords don't match
 				}
 			</span>
+			<div class="d-flex justify-content-center align-items-center">
+				@if (registrationError) {
+					<span class="text-danger mt-2">
+						{{ registrationError }}
+					</span>
+				} @else if (registrationSuccess) {
+					<span class="text-white bg-success border rounded-pill fs-2 p-1 m-1">
+						Registration successful
+					</span>
+				}
+			</div>
 		</div>
 
 		<button
